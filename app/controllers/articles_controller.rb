@@ -12,15 +12,30 @@ class ArticlesController < ApplicationController
       @article = Article.new
     end
 
-    def create
-      @article = Article.new(article_params)
+  def edit
+    @article = Article.find(params[:id])
+  end
 
-      if @article.save
-        redirect_to @article
-      else
-        render 'new'
-      end
+  def create
+    @article = Article.new(article_params)
+
+    if @article.save
+      redirect_to @article
+    else
+      render 'new'
     end
+  end
+
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render 'edit'
+    end
+  end
+
 #creating a private param argument to require and permit??
     private
       def article_params
